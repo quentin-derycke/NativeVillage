@@ -1,6 +1,6 @@
 import { Categoriesloader } from "../Data/Apis/categories";
 import React, { useEffect, useState } from "react";
-import {  Text, View, Button } from "react-native";
+import { Text, View, Button } from "react-native";
 
 
 function HomeScreen({ navigation }) {
@@ -23,7 +23,9 @@ function HomeScreen({ navigation }) {
         <Button
           title={category.name}
           onPress={() => {
-            navigation.navigate("Details");
+            navigation.navigate("Details", {
+              categoryId: category.id
+            });
           }}
         />
       ))}
