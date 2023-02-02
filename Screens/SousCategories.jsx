@@ -1,4 +1,4 @@
-import { SubCategoriesloader } from "../Data/Apis/categories";
+import { SubCategoryloader } from "../Data/Apis/categories";
 import React, { useEffect, useState } from "react";
 import {
   Text,
@@ -16,13 +16,13 @@ function DetailsScreen({ route, navigation }) {
   const [subCategories, setSubCategories] = useState([]);
 
   useEffect(() => {
-    SubCategoriesloader(categoryId.categoryId).then((category) =>
+    SubCategoryloader(categoryId.categoryId).then((category) =>
       setCategory(category)
     );
   }, []);
 
   useEffect(() => {
-    SubCategoriesloader(categoryId.categoryId).then((category) =>
+    SubCategoryloader(categoryId.categoryId).then((category) =>
       setSubCategories(category.parent)
     );
   }, []);
@@ -31,7 +31,7 @@ function DetailsScreen({ route, navigation }) {
     <ScrollView>
       <View style={styles.container}>
         <Text>{category.name}</Text>
-        <View style={styles.row}>
+        <View >
           {subCategories.map((subCategory, index) => (
             <Pressable
               onPress={() => {
@@ -60,16 +60,13 @@ const styles = StyleSheet.create({
   },
   card: {
     height: 200,
-    width: "100%",
+    width: 200,
+    maxWidth:"100%",
     backgroundColor: "#F9F9FE",
     justifyContent: "center", //Centered vertically
     alignItems: "center", // Centered horizontally
     margin: 12,
   },
-  row: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 8
-  },
+
 });
 export default DetailsScreen;

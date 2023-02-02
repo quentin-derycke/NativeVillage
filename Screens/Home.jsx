@@ -28,10 +28,10 @@ function HomeScreen({ navigation }) {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView horizontal={true}>
       <View style={styles.container}>
         <Text style={styles.titleText}>Green Village</Text>
-        <View>
+        <View style={styles.row}>
           {categories.map((category, index) => (
             <Pressable
               style={styles.card}
@@ -46,7 +46,7 @@ function HomeScreen({ navigation }) {
               <Card style={styles.card} key={index}>
                 <ImageBackground
                   style={styles.images}
-                  source={`https://quentin.amorce.org${category.Image.path}`}
+                  source={{ uri: `https://quentin.amorce.org${category.Image.path}`}}
                 >
                   <Text style={styles.categoryText}>{category.name}</Text>
                 </ImageBackground>
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   card: {
-    height: 200,
-    width: "100%",
+    height: 400,
+    width: 300,
     backgroundColor: "#F9F9FE",
     justifyContent: "center", //Centered vertically
     alignItems: "center", // Centered horizontally
@@ -91,10 +91,15 @@ const styles = StyleSheet.create({
   },
   images: {
     width: "100%",
-    height: 150,
+    height: 300,
     justifyContent: "center", //Centered vertically
     alignItems: "center", // Centered horizontally
     borderRadius: 10,
+  },
+  row: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 8
   },
 });
 

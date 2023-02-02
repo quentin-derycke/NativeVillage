@@ -1,18 +1,15 @@
-import { Text, View, Button, Pressable, StyleSheet } from "react-native";
-;
-function ProductsScreen({ route, navigation }) {
-const products = route.params.subCategoryProducts
+import { View, StyleSheet, Text } from "react-native"
 
-console.log(products)
+const ProductScreen = ({route}) => {
+
+const product = route.params.product
+console.log(product)
 
     return(
         <View style={styles.container}>
-            <Text> ProductScreens</Text>
-{products.map((product) => (
-    <Pressable>
-        <Text>{product.name}</Text>
-    </Pressable>
-))}
+            <Text>
+                Products Details
+            </Text>
         </View>
     )
 
@@ -20,10 +17,10 @@ console.log(products)
 
 const styles = StyleSheet.create({
     container: {
-        flex : 1 ,
-        JustifyContent: 'center',
-        alignsItems: 'center'
-    }
-})
+      flex: 1,
+      JustifyContent: "center",
+      alignItems: "center",
+    },  
+  });
 
-export default ProductsScreen
+  export default ProductScreen

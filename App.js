@@ -5,8 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./Screens/Home";
 import DetailsScreen from "./Screens/SousCategories";
-import ProductsScreen from "./Screens/Product";
-
+import ProductsScreen from "./Screens/Products";
+import ProductScreen from "./Screens/Product"
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -27,6 +27,11 @@ export default function App() {
           name="Products"
           component={ProductsScreen}
           options={({ route }) => ({title: route.params.subCategoryName})}        />
+          <Stack.Screen
+          name="Product"
+          component={ProductScreen} 
+          options={{ title: "Product" }}
+ />
       </Stack.Navigator>
     </NavigationContainer>
   );
