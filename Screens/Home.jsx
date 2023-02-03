@@ -6,56 +6,68 @@ import {
   Button,
   ScrollView,
   Image,
+  ActivityIndicator,
   StyleSheet,
   Pressable,
-  ImageBackground 
+  ImageBackground,
 } from "react-native";
 
 import Card from "../components/Card";
 
-
 function HomeScreen({ navigation }) {
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Categoriesloader().then((categories) =>
+    Categoriesloader().then((categories) => {
       setCategories(
         categories.filter(
           (category) => category.parent && category.parent.length > 0
         )
-      )
-    );
+      );
+      setLoading(false);
+    });
   }, []);
 
   return (
-    <ScrollView horizontal={true}>
-      <View style={styles.container}>
+      
+        <View style={styles.container}>
         <Text style={styles.titleText}>Green Village</Text>
-        <View style={styles.row}>
-          {categories.map((category, index) => (
-            <Pressable
-              style={styles.card}
-              key={index}
-              onPress={() => {
-                navigation.navigate("Details", {
-                  categoryId: category.id,
-                  categoryName: category.name,
-                });
-              }}
-            >
-              <Card style={styles.card} key={index}>
-                <ImageBackground
-                  style={styles.images}
-                  source={{ uri: `https://quentin.amorce.org${category.Image.path}`}}
-                >
-                  <Text style={styles.categoryText}>{category.name}</Text>
-                </ImageBackground>
-              </Card>
-            </Pressable>
-          ))}
+        <ScrollView horizontal={true}>
+
+          {loading ? (
+        <ActivityIndicator  style={styles.indicator}size="large" />
+      ) : (
+          <View style={styles.row}>
+            {categories.map((category, index) => (
+              <Pressable
+                style={styles.card}
+                key={index}
+                onPress={() => {
+                  navigation.navigate("Details", {
+                    categoryId: category.id,
+                    categoryName: category.name,
+                  });
+                }}
+              >
+                <Card style={styles.card} key={index}>
+                  <ImageBackground
+                    style={styles.images}
+                    source={{
+                      uri: `https://quentin.amorce.org${category.Image.path}`,
+                    }}
+                  >
+                    <Text style={styles.categoryText}>{category.name}</Text>
+                  </ImageBackground>
+                </Card>
+              </Pressable>
+            ))}
+          </View>
+          )}
+          </ScrollView>
+
         </View>
-      </View>
-    </ScrollView>
+      
   );
 }
 const styles = StyleSheet.create({
@@ -64,7 +76,7 @@ const styles = StyleSheet.create({
     JustifyContent: "center",
     alignItems: "center",
   },
-  
+
   titleText: {
     fontSize: 26,
     fontWeight: "bold",
@@ -99,8 +111,11 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8
+    gap: 8,
   },
+  indicator: {
+    flex: 1
+  }
 });
 
 export default HomeScreen;
